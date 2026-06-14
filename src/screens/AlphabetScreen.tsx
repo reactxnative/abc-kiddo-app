@@ -109,7 +109,7 @@ export default function AlphabetScreen() {
         </View>
       </View>
 
-      {/* Main card */}
+      
       <View style={styles.cardContainer}>
         <Animated.View style={[styles.animatedCardWrapper, { width: cardWidth, height: cardHeight }, cardAnimatedStyle]}>
           <Card
