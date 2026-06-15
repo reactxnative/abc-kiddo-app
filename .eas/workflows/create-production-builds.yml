@@ -3,36 +3,13 @@ name: Create Production Builds
 on:
   push:
     branches:
-      - main
+      - main # Jab bhi main branch par code push hoga, ye pipeline chalegi
 
 jobs:
   build_android:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+    type: build
+    params:
+      platform: android
+      profile: production
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - name: Setup Expo
-        uses: expo/expo-github-action@v8
-        with:
-          expo-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
-
-      - name: Install Dependencies
-        run: npm install
-
-      - name: Build Android
-        run: eas build --platform android --profile production --non-interactive
-
-      - name: Send Discord Notification
-        if: always()
-        uses: rjstone/discord-webhook-notify@v1
-        with:
-          severity: ${{ job.status }}
-          details: Build Status for ${ { github.ref_name } }
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      
